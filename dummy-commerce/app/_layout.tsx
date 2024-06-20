@@ -4,8 +4,10 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { NavigationContainer } from '@react-navigation/native';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { CartProvider } from '@/CartContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -28,9 +30,12 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="screens" options={{ headerShown: true }} />
+      <CartProvider>
+        <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false}} />
+        <Stack.Screen name="+not-found" />
       </Stack>
+      </CartProvider>
     </ThemeProvider>
   );
 }
